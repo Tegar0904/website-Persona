@@ -1,229 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To be my girl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #000000;
+            --dark-berry: #1a0f1a;
+            --soft-rose: #fce4ec;
+            --gold: #ccdaff;
+            --glow: rgba(204, 218, 255, 0.5);
+        }
 
-    <title>MyPortofolio - Tegar Elwin Triharto</title>
+        * { box-sizing: border-box; cursor: default; }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap"
-      rel="stylesheet"
-    />
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            background-color: var(--dark-berry);
+            perspective: 1000px;
+        }
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(26, 15, 26, 0.7), rgba(26, 15, 26, 0.9)), 
+                        url('assets/hero.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column; /* Ditambah agar tombol pesan di bawah card */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
 
-  <body>
-    <!-- Header -->
-    <header class="navigation-header">
-      <!-- Navigation -->
-      <nav>
-        <!-- Logo -->
-        <a href="#home" class="logo">MyPortofolio</a>
+        .invitation-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 2.5rem 1.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            color: white;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease-out;
+            transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+            will-change: transform;
+            z-index: 10;
+        }
 
-        <!-- Navigation Links -->
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+        .invitation-card:hover {
+            box-shadow: 0 25px 60px rgba(204, 218, 255, 0.2);
+            border: 1px solid rgba(204, 218, 255, 0.4);
+        }
 
-    <!-- Hero Section -->
-    <header id="home" class="hero-section">
-      <div class="container">
-        <h1>Tegar Elwin Triharto</h1>
-        <p class="subtitle">Frontend Developer</p>
-        <p class="description">
-          Anggota CX-16 UKM IT CYBERNETIX
-        </p>
-        <a href="" class="cta-button">Hire Me</a>
-      </div>
-    </header>
+        .names { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 3.5rem; 
+            color: var(--gold); 
+            margin: 0.5rem 0; 
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(204, 218, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
 
-    <!-- About Me Section -->
-    <section id="about" class="about-me">
-      <div class="container">
-        <!-- About Photo -->
-        <div class="about-photo">
-          <img src="image/IMG_1496.JPG" alt="Avatar" />
+        /* --- STYLE TOMBOL PESAN (DI BAWAH CARD) --- */
+        .msg-btn-container {
+            margin-top: 25px;
+            z-index: 11;
+        }
+
+        .btn-msg {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .btn-msg:hover {
+            background: var(--gold);
+            color: var(--dark-berry);
+            box-shadow: 0 0 20px var(--glow);
+            transform: scale(1.05);
+        }
+
+        /* --- MODAL PESAN PANJANG --- */
+        .msg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .msg-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            color: white;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .msg-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            white-space: pre-wrap; /* Agar paragraf terbaca */
+        }
+
+        /* Tombol Utama */
+        .btn-container { display: flex; flex-direction: column; gap: 12px; margin-top: 2rem; }
+        .btn { padding: 16px 20px; border-radius: 12px; border: none; cursor: pointer; font-weight: 700; transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn:active { transform: scale(0.92); }
+        .btn-primary { background-color: white; color: var(--primary-pink); }
+        .btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; }
+
+        /* Modal Info & Petal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: none; justify-content: center; align-items: center; z-index: 100; }
+        .modal-content { background: white; color: #333; padding: 2rem; border-radius: 20px; max-width: 350px; width: 100%; text-align: center; transform: translateY(20px); transition: 0.4s; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .petal { position: absolute; background-color: #ffc0cb; border-radius: 150% 0 150% 0; opacity: 0.5; pointer-events: none; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+
+        @media (min-width: 600px) { .btn-container { flex-direction: row; } .names { font-size: 4.5rem; } }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section" id="hero">
+        <div class="invitation-card" id="card">
+            <p class="header-text">You Are Invited</p>
+            <span class="names">Syerly Qofifah Amanda</span>
+            <h1>LET'S START OUR STORY!</h1>
+            <p style="font-size: 0.9rem; opacity: 0.9;">El mau jadikan Ai pacarnya El.</p>
+            
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="openModal()">LOKASI & INFO</button>
+                <button class="btn btn-secondary" onclick="handleRSVP()">TERIMA UNDANGAN</button>
+            </div>
         </div>
 
-        <!-- About Text -->
-        <div class="about-text">
-          <h2>About Me</h2>
-          <p>
-            Saya
-            memiliki latar belakang pendidikan di bidang teknologi informasi dan
-            fokus dalam pengembangan frontend menggunakan teknologi modern
-            seperti HTML, CSS, dan JavaScript.
-          </p>
-          <p>
-            Dalam waktu luang, saya menikmati berbagai hobi seperti menyanyi,mengedit poto,
-            dan menjelajahi tempat-tempat baru.
-          </p>
+        <div class="msg-btn-container">
+            <button class="btn-msg" onclick="openMsg()">💌 Baca Pesan Untuk Ai</button>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-      <div class="container">
-        <h2>My Skills</h2>
-
-        <div class="skills-grid">
-          <!-- Skill 1 -->
-          <div class="skill-card">
-            <i class="skill-icon"><></i>
-            <h3>HTML</h3>
-            <div class="progress-bar">
-              <div class="progress" style="width: 90%"></div>
-            </div>
-          </div>
-
-          <!-- Skill 2 -->
-          <div class="skill-card">
-            <i class="skill-icon">🎨</i>
-            <h3>CSS</h3>
-            <div class="progress-bar">
-              <div class="progress" style="width: 85%"></div>
-            </div>
-          </div>
-
-          <!-- Skill 3 -->
-          <div class="skill-card">
-            <i class="skill-icon">💻</i>
-            <h3>JavaScript</h3>
-            <div class="progress-bar">
-              <div class="progress" style="width: 75%"></div>
-            </div>
-          </div>
-
-          <!-- Skill 4 -->
-          <div class="skill-card">
-            <i class="skill-icon">⚛️</i>
-            <h3>React</h3>
-            <div class="progress-bar">
-              <div class="progress" style="width: 70%"></div>
-            </div>
-          </div>
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content">
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 2.5rem;">Detail Acara</h2>
+            <p style="color: #e91e63; font-weight: bold;">📍 Tempat & Waktu</p>
+            <p><strong>Mandys Cafe, Pondok</strong><br>Kamis, 1 Jan 2026<br>19.00 WIB</p>
+            <p style="color: #e91e63; font-weight: bold;">👗 Dresscode</p>
+            <p><strong>Hijau seperti yang Ai suka</strong></p>
+            <button class="btn btn-primary" style="width: 100%; background: #1a0f1a; color: white;" onclick="closeModal()">TUTUP</button>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- Portfolio Section -->
-    <section id="projects" class="portfolio">
-      <div class="container">
-        <h2>My Projects</h2>
-
-        <div class="portfolio-grid">
-          <!-- Project 1 -->
-          <div class="project-card">
-            <img src="image/Screenshot (181).png" alt="Project 1 Thumbnail" />
-
-            <div class="project-content">
-              <h3>Project One</h3>
-              <p>Tugas akir kelulusan Caang 16 UKM IT CYBERNETIX</p>
-              <a href="#" target="_blank" class="project-link">View Project</a>
-            </div>
-          </div>
-
-          <!-- Project 2 -->
-          <div class="project-card">
-            <img src="image/Screenshot (182).png" alt="Project 2 Thumbnail" />
-
-            <div class="project-content">
-              <h3>Project Two</h3>
-              <p>Tugas membuat personal web kelas Desain Web</p>
-              <a href="#" target="_blank" class="project-link">View Project</a>
-            </div>
-          </div>
-
-          <!-- Project 3 -->
-          <div class="project-card">
-            <img src="image/Screenshot (183).png" alt="Project 3 Thumbnail" />
-
-            <div class="project-content">
-              <h3>Project Three</h3>
-              <p>Tugas membuat Portofolio kelas Frontend</p>
-              <a href="#" target="_blank" class="project-link">View Project</a>
-            </div>
-          </div>
+    <div class="msg-overlay" id="msgOverlay">
+        <div class="msg-box">
+            <h2 style="font-family: 'Great Vibes'; font-size: 2.5rem; color: var(--gold); text-align: center;">Untuk Ai...</h2>
+            <div class="msg-content" id="typewriter"></div>
+            <button class="btn-primary" style="width: 100%; margin-top: 25px; border-radius: 30px;" onclick="closeMsg()">TUTUP PESAN</button>
         </div>
-      </div>
-    </section>
+    </div>
+    
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <div class="container">
-        <h2>Contact Me</h2>
+    <script>
+        const card = document.getElementById('card');
+        const hero = document.getElementById('hero');
 
-        <p>
-          Silahkan hubungi saya jika diperlukan
-        </p>
+        // Text untuk pesan panjang
+        const longMessage = `Hai Ai (Syerly),
 
-        <div class="contact-grid">
-          <!-- Contact Form -->
-          <form class="contact-form" action="#" method="POST">
-            <label for="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Name"
-              required
-            />
+Mungkin El tidak terlalu pandai mengungkapkan kata, tapi El cuma mau Ai tau kalau selama beberapa tahun ni El selalu kepikiran Ai, El takut kehilangan Ai dan El cinta sama Ai. El ingin kita punya hubungan yang lebih dari sekadar teman cerita.
 
-            <label for="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Your Email"
-              required
-            />
+El ingin jadi orang yang Ai butuhkan untuk sandaran Ai. Jadi, El ingin benar-benar memulai semuanya sama Ai.
 
-            <label for="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="Your Message"
-              required
-            ></textarea>
+Jadikan El pacarmu ya? ❤️`;
 
-            <button type="submit" class="submit-button">Send Message</button>
-          </form>
+        // Parallax Effect
+        hero.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
 
-          <!-- Additional Contact Information -->
-          <div class="contact-info">
-            <p><strong>Email:</strong> tegarelwin0904@gmail.com</p>
-            <p><strong>Phone:</strong> +6282388197307</p>
-            <p><strong>Follow Me:</strong></p>
-            <a href="https://www.linkedin.com/in/tegar-elwin-triharto-9608822b9" target="_blank" class="social-link">LinkedIn</a>
-            <a href="#" target="_blank" class="social-link">GitHub</a>
-          </div>
-        </div>
-      </div>
-    </section>
+        hero.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; });
 
-    <footer class="footer">
-      <div class="container">
-        <p>&copy; 2024 Tegar Elwin Triharto. All Rights Reserved.</p>
+        // Modal Control
+        function openModal() { 
+            const m = document.getElementById('infoModal'); m.style.display = 'flex'; 
+            setTimeout(() => m.classList.add('active'), 10);
+        }
+        function closeModal() { 
+            const m = document.getElementById('infoModal'); m.classList.remove('active');
+            setTimeout(() => m.style.display = 'none', 300);
+        }
 
-        <div class="footer-links">
-          <a href="#" target="_blank" class="footer-link">LinkedIn</a>
-          <a href="#" target="_blank" class="footer-link">GitHub</a>
-          <a href="mailto:example@example.com" class="footer-link">Email</a>
-        </div>
-      </div>
-    </footer>
-  </body>
+        // Pesan Panjang dengan Typewriter
+        let j = 0;
+        function type() {
+            if (j < longMessage.length) {
+                document.getElementById("typewriter").innerHTML += longMessage.charAt(j);
+                j++;
+                setTimeout(type, 40);
+            }
+        }
+
+        function openMsg() {
+            document.getElementById('msgOverlay').style.display = 'flex';
+            document.getElementById("typewriter").innerHTML = "";
+            j = 0;
+            type();
+        }
+
+        function closeMsg() { document.getElementById('msgOverlay').style.display = 'none'; }
+
+        function handleRSVP() { alert('Ai bilang: "IYA MAU!" ❤️'); }
+
+        // Petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.width = Math.random() * 12 + 8 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 4 + 6 + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, 8000);
+        }
+        setInterval(createPetal, 400);
+
+        window.onclick = function(e) {
+            if (e.target.className === 'modal-overlay') closeModal();
+            if (e.target.className === 'msg-overlay') closeMsg();
+        }
+    </script>
+</body>
 </html>
